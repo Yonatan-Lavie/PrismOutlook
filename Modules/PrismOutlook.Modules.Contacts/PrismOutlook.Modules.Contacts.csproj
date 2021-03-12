@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>PrismOutlook.Modules.Contacts</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Infragistics.WPF.OutlookBar.Trial" Version="20.2.27" />
+    <PackageReference Include="Infragistics.WPF.Ribbon.Trial" Version="20.2.27" />
+    <PackageReference Include="Prism.Wpf" Version="8.0.0.1909" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\PrismOutlook.Core\PrismOutlook.Core.csproj" />
+  </ItemGroup>
+</Project>
