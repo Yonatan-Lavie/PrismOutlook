@@ -22,7 +22,7 @@ namespace PrismOutlook.Modules.Contacts
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-
+            containerRegistry.RegisterForNavigation<ViewA>();
         }
     }
 }
