@@ -1,4 +1,6 @@
-﻿using Infragistics.Windows.OutlookBar;
+﻿using Infragistics.Controls.Menus;
+using Infragistics.Windows.OutlookBar;
+using PrismOutlook.Business;
 using PrismOutlook.Core;
 
 namespace PrismOutlook.Modules.Mail.Menus
@@ -14,6 +16,17 @@ namespace PrismOutlook.Modules.Mail.Menus
         }
 
         // TODO refactor from code behaind to MailGroupViewModel this is implemintation of IOutlookBarGroup
-        public string DefaultNavigationPath => "MailList";
+        public string DefaultNavigationPath
+        {
+            get
+            {
+                var item = _dataTree.SelectionSettings.SelectedNodes[0] as XamDataTreeNode;
+                if(item != null)
+                {
+                    return ((NavigationItem)item.Data).NavigationPath;
+                }
+                return "MailList";
+            }
+        }
     }
 }

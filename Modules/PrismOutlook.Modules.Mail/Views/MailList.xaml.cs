@@ -1,4 +1,5 @@
-﻿using Infragistics.Windows.OutlookBar;
+﻿using PrismOutlook.Core;
+using PrismOutlook.Modules.Mail.Menus;
 using System.Windows.Controls;
 
 namespace PrismOutlook.Modules.Mail.Views
@@ -6,6 +7,7 @@ namespace PrismOutlook.Modules.Mail.Views
     /// <summary>
     /// Interaction logic for MailList
     /// </summary>
+    [DependentViewAttribute(RegionNames.RibbonRegion, typeof(HomeTab))]
     public partial class MailList : UserControl
     {
         public MailList()

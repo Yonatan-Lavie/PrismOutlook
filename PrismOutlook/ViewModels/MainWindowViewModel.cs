@@ -6,7 +6,7 @@ using System;
 
 namespace PrismOutlook.ViewModels
 {
-    public class MainWindowViewModel : BindableBase
+    public class MainWindowViewModel : ViewModelBase
     {
         private string _title = "Prism Application";
         public string Title

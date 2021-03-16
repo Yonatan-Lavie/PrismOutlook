@@ -5,6 +5,6 @@
              xmlns:ig="http://schemas.infragistics.com/xaml/wpf"
              prism:ViewModelLocator.AutoWireViewModel="True">
   <Grid>
-    <TextBlock Text="Mail List"></TextBlock>
+    <TextBlock Text="{Binding Title}"></TextBlock>
   </Grid>
 </UserControl>
