@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prism="http://prismlibrary.com/" 
              xmlns:ig="http://schemas.infragistics.com/xaml/wpf"
-             xmlns:igPrism="http://schemas.infragistics.com/xaml/primitives"
+             xmlns:igPrim="http://schemas.infragistics.com/xaml/primitives"
              prism:ViewModelLocator.AutoWireViewModel="True">
   <Grid>
     <Grid.ColumnDefinitions>
@@ -31,19 +31,57 @@
     
     <!--Mail Preview Area-->
     <Border Grid.Column="1" Margin="5,0,0,0" Background="White">
-      <StackPanel>
-        <TextBlock Margin="5" Text="{Binding SelectedMessage.From}"/>
-        <TextBlock Margin="5" Text="{Binding SelectedMessage.To}"/>
-        <TextBlock Margin="5" Text="{Binding SelectedMessage.CC}"/>
-        <TextBlock Margin="5" Text="{Binding SelectedMessage.Subject}"/>
-        <TextBlock Margin="5" Text="{Binding SelectedMessage.Body}"/>
-      </StackPanel>
+      <Grid Margin="5">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Margin="10,0,0,0">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="85"/>
+            <ColumnDefinition Width="*"/>
+          </Grid.ColumnDefinitions>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="10"/>
+          </Grid.RowDefinitions>
+
+          <Border Grid.Column="0" Grid.Row="0" Grid.RowSpan="7" Width="85" Height="85" BorderBrush="Black" BorderThickness="0.4" VerticalAlignment="Top">
+            <Grid>
+              <Image Source="/PrismOutlook.Modules.Mail;component/Images/unknown.png" Margin="3"/>
+            </Grid>
+          </Border>
+
+          <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding SelectedMessage.DateSent, StringFormat={}{0:ddd MM/dd/yyyy hh:mm tt}}" Margin="10,0,0,0" />
+
+          <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding SelectedMessage.Subject}" FontSize="16" Margin="10,0,0,0" />
+
+          <TextBlock Grid.Column="0" Grid.Row="3" Text="To:" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+          <TextBlock Grid.Column="0" Grid.Row="4" Text="Cc:"  HorizontalAlignment="Left" Height="25" Padding="0,7,0,0" />
+
+          <TextBlock Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Text="{Binding SelectedMessage.To}" 
+                               VerticalAlignment="Bottom" Margin="25,0,0,0" />
+          <TextBlock Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Text="{Binding SelectedMessage.CC}" 
+                               Padding="0,7,0,0" Height="25" Margin="25,0,0,0" />
+
+          <Rectangle Grid.Row="6" Grid.ColumnSpan="2" Stroke="#FFD4D4D4"  StrokeThickness="0.4" Height="1" VerticalAlignment="Center" Fill="Transparent" igPrim:XamlHelper.SnapsToDevicePixels="True"/>
+        </Grid>
+
+        <TextBlock Grid.Row="1" Text="{Binding SelectedMessage.Body}"/>
+
+      </Grid>
+
     </Border>
     <GridSplitter Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Left" Width="10" Grid.RowSpan="100">
       <GridSplitter.Template>
         <ControlTemplate>
           <Grid Background="White">
-            <Rectangle Width="1" Fill="#D4D4D4" igPrism:XamlHelper.SnapsToDevicePixels="True" Margin="0,5,0,0" HorizontalAlignment="Center"/>
+            <Rectangle Width="1" Fill="#D4D4D4" igPrim:XamlHelper.SnapsToDevicePixels="True" Margin="0,5,0,0" HorizontalAlignment="Center"/>
           </Grid>
         </ControlTemplate>
       </GridSplitter.Template>
