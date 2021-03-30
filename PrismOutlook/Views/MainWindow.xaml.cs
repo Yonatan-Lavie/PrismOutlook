@@ -19,7 +19,6 @@ namespace PrismOutlook.Views
         {
             InitializeComponent();
 
-            Infragistics.Themes.ThemeManager.ApplicationTheme = new Office2013Theme();
             _applicationCommands = applicationCommands;
         }
 

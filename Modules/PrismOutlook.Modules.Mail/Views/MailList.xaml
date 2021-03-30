@@ -3,8 +3,35 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prism="http://prismlibrary.com/" 
              xmlns:ig="http://schemas.infragistics.com/xaml/wpf"
+             xmlns:igPrism="http://schemas.infragistics.com/xaml/primitives"
              prism:ViewModelLocator.AutoWireViewModel="True">
   <Grid>
-    <TextBlock Text="{Binding Title}"></TextBlock>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="150"/>
+      <ColumnDefinition Width="*" />
+    </Grid.ColumnDefinitions>
+
+    <Grid Background="White" Margin="5,0,0,0">
+      <ig:XamDataGrid>
+        
+      </ig:XamDataGrid>
+    </Grid>
+    
+    <!--Mail Preview Area-->
+    <Border Grid.Column="1" Margin="5,0,0,0" Background="White">
+      <StackPanel>
+        <TextBlock Margin="5" Text="{Binding Title}"/>
+      </StackPanel>
+    </Border>
+    <GridSplitter Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Left" Width="10" Grid.RowSpan="100">
+      <GridSplitter.Template>
+        <ControlTemplate>
+          <Grid Background="White">
+            <Rectangle Width="1" Fill="#D4D4D4" igPrism:XamlHelper.SnapsToDevicePixels="True" Margin="0,5,0,0" HorizontalAlignment="Center"/>
+          </Grid>
+        </ControlTemplate>
+      </GridSplitter.Template>
+    </GridSplitter>
+    
   </Grid>
 </UserControl>

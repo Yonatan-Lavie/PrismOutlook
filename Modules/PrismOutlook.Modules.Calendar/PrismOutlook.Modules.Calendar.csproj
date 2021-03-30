@@ -2,18 +2,13 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
-    <AssemblyName>PrismOutlook.Modules.Mail</AssemblyName>
+    <AssemblyName>PrismOutlook.Modules.Calendar</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Infragistics.WPF.DataGrids.Trial" Version="20.2.27" />
     <PackageReference Include="Infragistics.WPF.DataTree.Trial" Version="20.2.27" />
     <PackageReference Include="Infragistics.WPF.OutlookBar.Trial" Version="20.2.27" />
     <PackageReference Include="Infragistics.WPF.Ribbon.Trial" Version="20.2.27" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
     <PackageReference Include="Prism.Wpf" Version="8.0.0.1909" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\PrismOutlook.Business\PrismOutlook.Business.csproj" />
-    <ProjectReference Include="..\..\PrismOutlook.Core\PrismOutlook.Core.csproj" />
   </ItemGroup>
 </Project>

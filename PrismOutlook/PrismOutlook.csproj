@@ -6,6 +6,7 @@
     <AssemblyName>PrismOutlook</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Infragistics.WPF.DataGrids.Trial" Version="20.2.27" />
     <PackageReference Include="Infragistics.WPF.OutlookBar.Trial" Version="20.2.27" />
     <PackageReference Include="Infragistics.WPF.Ribbon.Trial" Version="20.2.27" />
     <PackageReference Include="Infragistics.WPF.Themes.Office2013.Trial" Version="20.2.27" />
