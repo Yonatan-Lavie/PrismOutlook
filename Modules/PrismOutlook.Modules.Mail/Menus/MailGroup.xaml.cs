@@ -2,6 +2,7 @@
 using Infragistics.Windows.OutlookBar;
 using PrismOutlook.Business;
 using PrismOutlook.Core;
+using PrismOutlook.Modules.Mail.ViewModels;
 
 namespace PrismOutlook.Modules.Mail.Menus
 {
@@ -13,6 +14,19 @@ namespace PrismOutlook.Modules.Mail.Menus
         public MailGroup()
         {
             InitializeComponent();
+
+            // TODO : refactor
+            _dataTree.Loaded += _dataTree_Loaded;
+        }
+
+        // TODO : refactor
+        private void _dataTree_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            _dataTree.Loaded -= _dataTree_Loaded;
+
+            var perentNode = _dataTree.Nodes[0];
+            var nodeToSelect = perentNode.Nodes[0];
+            nodeToSelect.IsSelected = true;
         }
 
         // TODO refactor from code behaind to MailGroupViewModel this is implemintation of IOutlookBarGroup
@@ -25,7 +39,8 @@ namespace PrismOutlook.Modules.Mail.Menus
                 {
                     return ((NavigationItem)item.Data).NavigationPath;
                 }
-                return "MailList";
+                
+                return $"MailList?{FolderParameters.FolderKey}={FolderParameters.Inbox}";
             }
         }
     }

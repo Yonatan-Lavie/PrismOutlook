@@ -10,6 +10,7 @@ using System.Windows;
 using PrismOutlook.Modules.Contacts;
 using PrismOutlook.Core;
 using Infragistics.Themes;
+using PrismOutlook.Services.Interfaces;
 
 namespace PrismOutlook
 {

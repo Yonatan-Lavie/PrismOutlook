@@ -15,6 +15,7 @@ namespace PrismOutlook.Core
 
         public virtual bool IsNavigationTarget(NavigationContext navigationContext)
         {
+            // returning "true"   minning that instance will reuse by default
             return true;
         }
 

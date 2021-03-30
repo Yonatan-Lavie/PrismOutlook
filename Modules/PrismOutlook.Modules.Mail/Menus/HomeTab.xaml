@@ -9,7 +9,6 @@
   <ig:RibbonGroup Caption="New">
     <ig:ToolHorizontalWrapPanel>
       <ig:ButtonTool Caption="Button"
-                     Command="{Binding TestCommand}"
                      ig:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
     </ig:ToolHorizontalWrapPanel>
   </ig:RibbonGroup>
