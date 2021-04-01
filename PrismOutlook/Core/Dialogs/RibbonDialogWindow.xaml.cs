@@ -14,13 +14,17 @@ using System.Windows.Shapes;
 namespace PrismOutlook.Core.Dialogs
 {
     /// <summary>
-    /// Interaction logic for RibbonWindow.xaml
+    /// Interaction logic for RibbonDialogWindow.xaml
     /// </summary>
-    public partial class RibbonWindow
+    public partial class RibbonDialogWindow: IRegionDialogWindow
     {
-        public RibbonWindow()
+        public RibbonDialogWindow()
         {
             InitializeComponent();
         }
+
+    }
+    public interface IRegionDialogWindow
+    {
     }
 }

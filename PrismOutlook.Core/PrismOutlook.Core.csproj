@@ -6,7 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Infragistics.WPF.Ribbon.Trial" Version="20.2.27" />
     <PackageReference Include="Prism.Core" Version="8.0.0.1909" />
     <PackageReference Include="Prism.Wpf" Version="8.0.0.1909" />
   </ItemGroup>

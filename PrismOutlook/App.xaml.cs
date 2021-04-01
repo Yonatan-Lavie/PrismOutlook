@@ -33,7 +33,7 @@ namespace PrismOutlook
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            //containerRegistry.RegisterSingleton<IMyDialogService, MyDialogService>();
+            containerRegistry.RegisterSingleton<IRegionDialogService, RegionDialogService>();
 
             containerRegistry.RegisterSingleton<IApplicationCommands, ApplicationCommands>();
 

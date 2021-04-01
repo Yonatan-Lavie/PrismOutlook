@@ -5,7 +5,7 @@ using PrismOutlook.Business;
 using PrismOutlook.Core;
 using PrismOutlook.Services.Interfaces;
 using System.Collections.ObjectModel;
-using PrismOutlook.Core.Dialogs;
+
 
 namespace PrismOutlook.Modules.Mail.ViewModels
 {
@@ -13,7 +13,7 @@ namespace PrismOutlook.Modules.Mail.ViewModels
     {
         private ObservableCollection<MailMessage> _messages;
         private readonly IMailService _mailService;
-        private readonly IDialogService _dialogService;
+        private readonly IRegionDialogService _regionDialogService;
 
         public ObservableCollection<MailMessage> Messages
         {
@@ -34,13 +34,13 @@ namespace PrismOutlook.Modules.Mail.ViewModels
 
         void ExecuteMessageCommand(string parameter)
         {
-            _dialogService.ShowRibbonWindow("MessageView");
+            _regionDialogService.ShowRibbonDialog("MessageView");
         }
 
-        public MailListViewModel(IMailService mailService, IDialogService dialogService)
+        public MailListViewModel(IMailService mailService, IRegionDialogService regionDialogService)
         {
             _mailService = mailService;
-            _dialogService = dialogService;
+            _regionDialogService = regionDialogService;
         }
 
         public override void OnNavigatedTo(NavigationContext navigationContext)

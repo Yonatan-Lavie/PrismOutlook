@@ -9,6 +9,14 @@ namespace PrismOutlook.Modules.Mail.ViewModels
 {
     public class MessageViewModel : BindableBase, IDialogAware
     {
+        private DelegateCommand<string> _messageCommand;
+        public DelegateCommand<string> MessageCommand =>
+            _messageCommand ?? (_messageCommand = new DelegateCommand<string>(ExecuteMessageCommand));
+
+        void ExecuteMessageCommand(string parameter)
+        {
+            RequestClose?.Invoke(new DialogResult());
+        }
         public MessageViewModel()
         {
 

@@ -30,6 +30,8 @@ namespace PrismOutlook.Modules.Mail
             
             containerRegistry.RegisterForNavigation<MailList>();
 
+            containerRegistry.RegisterForNavigation<MessageView, MessageViewModel>();
+
             containerRegistry.RegisterSingleton<IMailService, MailService>();
 
             containerRegistry.RegisterDialog<MessageView, MessageViewModel>();
