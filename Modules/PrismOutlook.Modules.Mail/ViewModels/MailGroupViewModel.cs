@@ -64,13 +64,6 @@ namespace PrismOutlook.Modules.Mail.ViewModels
             return $"MailList?{FolderParameters.FolderKey}={folder}";
         }
     }
-    // TODO: dont like this approche 
-    public class FolderParameters
-    {
-        public const string FolderKey = "Folder";
 
-        public const string Inbox = "Inbox";
-        public const string Deleted = "Deleted";
-        public const string Sent = "Sent";
-    }
+
 }
