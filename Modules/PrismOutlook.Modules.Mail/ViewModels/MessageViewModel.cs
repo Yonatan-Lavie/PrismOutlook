@@ -1,25 +1,43 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
+using PrismOutlook.Business;
+using PrismOutlook.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 
 namespace PrismOutlook.Modules.Mail.ViewModels
 {
     public class MessageViewModel : BindableBase, IDialogAware
     {
-        private DelegateCommand<string> _messageCommand;
-        public DelegateCommand<string> MessageCommand =>
-            _messageCommand ?? (_messageCommand = new DelegateCommand<string>(ExecuteMessageCommand));
+        int _messageId;
 
-        void ExecuteMessageCommand(string parameter)
+        private DelegateCommand _sendMessageCommand;
+        private readonly IMailService _mailService;
+
+        private MailMessage _message;
+        public MailMessage Message
         {
-            RequestClose?.Invoke(new DialogResult());
+            get { return _message; }
+            set { SetProperty(ref _message, value); }
         }
-        public MessageViewModel()
-        {
 
+
+        public DelegateCommand SendMessageCommand =>
+            _sendMessageCommand ?? (_sendMessageCommand = new DelegateCommand(ExecuteSendMessageCommand));
+
+        void ExecuteSendMessageCommand()
+        {
+            IDialogParameters parameters = new DialogParameters();
+            parameters.Add("test", "i closed from vm");
+
+            RequestClose?.Invoke(new DialogResult(ButtonResult.Yes, parameters));
+        }
+        public MessageViewModel(IMailService mailService)
+        {
+            _mailService = mailService;
         }
 
         public string Title => "Mail Message";
@@ -38,7 +56,8 @@ namespace PrismOutlook.Modules.Mail.ViewModels
 
         public void OnDialogOpened(IDialogParameters parameters)
         {
-            
+            _messageId = parameters.GetValue<int>("id");
+            Message = _mailService.GetMessage(_messageId);
         }
     }
 }

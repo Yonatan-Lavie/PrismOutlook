@@ -5,13 +5,13 @@ using PrismOutlook.Business;
 using PrismOutlook.Core;
 using PrismOutlook.Services.Interfaces;
 using System.Collections.ObjectModel;
-
+using System.Linq;
 
 namespace PrismOutlook.Modules.Mail.ViewModels
 {
     public class MailListViewModel : ViewModelBase
     {
-        private ObservableCollection<MailMessage> _messages;
+        private ObservableCollection<MailMessage> _messages = new ObservableCollection<MailMessage>();
         private readonly IMailService _mailService;
         private readonly IRegionDialogService _regionDialogService;
 
@@ -34,7 +34,15 @@ namespace PrismOutlook.Modules.Mail.ViewModels
 
         void ExecuteMessageCommand(string parameter)
         {
-            _regionDialogService.ShowRibbonDialog("MessageView");
+            if (SelectedMessage == null)
+                return;
+
+            var prameters = new DialogParameters();
+            prameters.Add("id", SelectedMessage.Id);
+            _regionDialogService.Show("MessageView", prameters, (result) => 
+            {
+                
+            });
         }
 
         public MailListViewModel(IMailService mailService, IRegionDialogService regionDialogService)
@@ -67,6 +75,8 @@ namespace PrismOutlook.Modules.Mail.ViewModels
                 default:
                     break;
             }
+
+            SelectedMessage = Messages.FirstOrDefault();
         }
     }
 }

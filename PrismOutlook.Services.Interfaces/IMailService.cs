@@ -12,5 +12,7 @@ namespace PrismOutlook.Services.Interfaces
         IList<MailMessage> GetSentItems();
         
         IList<MailMessage> GetDeletedItems();
+
+        MailMessage GetMessage(int id);
     }
 }

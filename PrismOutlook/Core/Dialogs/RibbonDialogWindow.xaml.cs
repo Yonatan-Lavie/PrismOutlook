@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Prism.Services.Dialogs;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -16,15 +17,13 @@ namespace PrismOutlook.Core.Dialogs
     /// <summary>
     /// Interaction logic for RibbonDialogWindow.xaml
     /// </summary>
-    public partial class RibbonDialogWindow: IRegionDialogWindow
+    public partial class RibbonDialogWindow: IDialogWindow
     {
         public RibbonDialogWindow()
         {
             InitializeComponent();
         }
 
-    }
-    public interface IRegionDialogWindow
-    {
+        public IDialogResult Result { get; set ; }
     }
 }
