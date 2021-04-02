@@ -30,8 +30,9 @@ namespace PrismOutlook.Modules.Mail.ViewModels
 
         void ExecuteSendMessageCommand()
         {
+            _mailService.SendMessage(Message);
             IDialogParameters parameters = new DialogParameters();
-            parameters.Add("test", "i closed from vm");
+            parameters.Add("messageSent", Message);
 
             RequestClose?.Invoke(new DialogResult(ButtonResult.Yes, parameters));
         }
@@ -57,7 +58,10 @@ namespace PrismOutlook.Modules.Mail.ViewModels
         public void OnDialogOpened(IDialogParameters parameters)
         {
             _messageId = parameters.GetValue<int>("id");
-            Message = _mailService.GetMessage(_messageId);
+            if (_messageId == 0)
+                Message = new MailMessage() { From="yonatanb.lavie89@gmail.com"};
+            else
+                Message = _mailService.GetMessage(_messageId);
         }
     }
 }

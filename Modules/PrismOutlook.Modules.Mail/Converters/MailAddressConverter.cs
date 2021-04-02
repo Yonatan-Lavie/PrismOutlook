@@ -21,8 +21,13 @@ namespace PrismOutlook.Modules.Mail.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            //TODO: implement
-            return value;
+            var emailCollection = new ObservableCollection<string>();
+            if (value == null || String.IsNullOrWhiteSpace(value.ToString()))
+                return emailCollection;
+            var emails = value.ToString();
+            var emailItems = emails.Replace(" ","").Split(";",StringSplitOptions.RemoveEmptyEntries);
+
+            return emailCollection.AddRange(emailItems);
         }
     }
 }

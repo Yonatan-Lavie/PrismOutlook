@@ -46,6 +46,8 @@ namespace PrismOutlook.Services
 
         static List<MailMessage> DeletedItems = new List<MailMessage>();
 
+
+
         public IList<MailMessage> GetDeletedItems()
         {
             return DeletedItems;
@@ -69,6 +71,39 @@ namespace PrismOutlook.Services
         public IList<MailMessage> GetSentItems()
         {
             return SentItems;
+        }
+        public void DeleteMessage(int id)
+        {
+
+            var message = InboxItems.FirstOrDefault(m => m.Id == id);
+            if(message != null)
+            {
+                InboxItems.Remove(message);
+                DeletedItems.Add(message);
+                return;
+            }
+
+            message = SentItems.FirstOrDefault(m => m.Id == id);
+            if (message != null)
+            {
+                SentItems.Remove(message);
+                DeletedItems.Add(message);
+                return;
+            }
+
+            message = DeletedItems.FirstOrDefault(m => m.Id == id);
+            if(message != null)
+            {
+                DeletedItems.Remove(message);
+                return;
+            }
+
+        }
+
+        public void SendMessage(MailMessage message)
+        {
+            message.DateSent = DateTime.Now;
+            SentItems.Add(message);
         }
     }
 }

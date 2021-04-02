@@ -10,6 +10,7 @@
       <ig:ButtonTool Caption="Send"
                      Command="{Binding SendMessageCommand}"
                      ig:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
+
     </ig:ToolHorizontalWrapPanel>
   </ig:RibbonGroup>
 

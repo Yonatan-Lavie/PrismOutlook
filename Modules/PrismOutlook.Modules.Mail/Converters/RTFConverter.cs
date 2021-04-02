@@ -27,6 +27,8 @@ namespace PrismOutlook.Modules.Mail.Converters
         public static string convertString_RTF(string text, RichTextBox rtb)
         {
             string rtfText = text;
+            if (text == null)
+                return null;
             byte[] byteArray = Encoding.ASCII.GetBytes(rtfText);
             using (System.IO.MemoryStream ms = new System.IO.MemoryStream(byteArray))
             {

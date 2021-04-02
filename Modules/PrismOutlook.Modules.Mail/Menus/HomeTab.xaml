@@ -4,12 +4,18 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PrismOutlook.Modules.Mail.Menus"
              xmlns:ig="http://schemas.infragistics.com/xaml/wpf"
-             Header="Home">
+             Header="Mail">
   
   <ig:RibbonGroup Caption="New">
     <ig:ToolHorizontalWrapPanel>
-      <ig:ButtonTool Caption="Button"
-                     Command="{Binding MessageCommand}"
+      <ig:ButtonTool Caption="New"
+                     Command="{Binding NewMessageCommand}"
+                     ig:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
+      <ig:ButtonTool Caption="Reply"
+                     Command="{Binding ReplyMessageCommand}"
+                     ig:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
+      <ig:ButtonTool Caption="Delete"
+                     Command="{Binding DeleteMessageCommand}"
                      ig:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
     </ig:ToolHorizontalWrapPanel>
   </ig:RibbonGroup>
