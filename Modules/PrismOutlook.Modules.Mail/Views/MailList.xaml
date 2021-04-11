@@ -5,6 +5,7 @@
              xmlns:igWpf="http://schemas.infragistics.com/xaml/wpf"
              xmlns:ig="http://schemas.infragistics.com/xaml"
              xmlns:igPrim="http://schemas.infragistics.com/xaml/primitives"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:converters="clr-namespace:PrismOutlook.Modules.Mail.Converters"
              prism:ViewModelLocator.AutoWireViewModel="True">
 
@@ -15,7 +16,6 @@
       </Style.Setters>
     </Style>
     <converters:MailAddressConverter x:Key="MailAddressConverter" />
-    <converters:RTFConverter x:Key="RTFConverter"/>
   </UserControl.Resources>
 
   <Grid>
@@ -94,19 +94,15 @@
           <Rectangle Grid.Row="6" Grid.ColumnSpan="2" Stroke="#FFD4D4D4"  StrokeThickness="0.4" Height="1" VerticalAlignment="Center" Fill="Transparent" igPrim:XamlHelper.SnapsToDevicePixels="True"/>
         </Grid>
 
-        <!---->
-        <!--<TextBlock Grid.Row="1" Text="{Binding SelectedMessage.Body}"/>-->
-        <!--<ig:XamRichTextEditor Grid.Row="1" IsReadOnly="True" AllowDocumentViewSplitting="False" BorderThickness="0">
-          
-        </ig:XamRichTextEditor>-->
+        <xctk:RichTextBox Grid.Row="1" x:Name="_richTextBox"
+                                     IsReadOnly="True"
+                                     Text="{Binding SelectedMessage.Body}" 
+                                     ScrollViewer.VerticalScrollBarVisibility="Auto">
+          <xctk:RichTextBox.TextFormatter>
+            <xctk:RtfFormatter />
+          </xctk:RichTextBox.TextFormatter>
+        </xctk:RichTextBox>
 
-        <RichTextBox Grid.Row="1" VerticalAlignment="Bottom" >
-          <FlowDocument>
-            <Paragraph>
-              <Run Text="{Binding SelectedMessage.Body, Converter={StaticResource RTFConverter}}" />
-            </Paragraph>
-          </FlowDocument>
-        </RichTextBox>
 
       </Grid>
     </Border>

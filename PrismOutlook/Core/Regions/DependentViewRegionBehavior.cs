@@ -56,6 +56,10 @@ namespace PrismOutlook.Core.Regions
                                     {
                                         infoDC.DataContext = newViewDC.DataContext;
                                     }
+                                    if(info.View is ISupportRichText infoRT && newView is ISupportRichText viewRT)
+                                    {
+                                        infoRT.RichTextEditor = viewRT.RichTextEditor;
+                                    }
 
                                     //add to list
                                     dependentViews.Add(info);

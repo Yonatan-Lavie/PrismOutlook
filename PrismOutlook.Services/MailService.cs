@@ -72,6 +72,7 @@ namespace PrismOutlook.Services
         {
             return SentItems;
         }
+
         public void DeleteMessage(int id)
         {
 

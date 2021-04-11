@@ -5,10 +5,10 @@
              xmlns:ig="http://schemas.infragistics.com/xaml"
              xmlns:igPrim="http://schemas.infragistics.com/xaml/primitives"
              xmlns:converters="clr-namespace:PrismOutlook.Modules.Mail.Converters"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              prism:ViewModelLocator.AutoWireViewModel="True">
   <UserControl.Resources>
     <converters:MailAddressConverter x:Key="MailAddressConverter" />
-    <converters:RTFConverter x:Key="RTFConverter"/>
   </UserControl.Resources>
 
 
@@ -45,14 +45,14 @@
       </Grid>
 
 
-      <!-- TODO: Need to implement rich text that can by editable -->
-      <RichTextBox Grid.Row="1" VerticalAlignment="Bottom">
-        <FlowDocument>
-          <Paragraph>
-            <Run Text="{Binding Message.Body, Converter={StaticResource RTFConverter}}"/>
-          </Paragraph>
-        </FlowDocument>
-      </RichTextBox>
+      <xctk:RichTextBox Grid.Row="3" x:Name="_richTextBox"
+                                     IsReadOnly="False"
+                                     Text="{Binding Message.Body}" 
+                                     ScrollViewer.VerticalScrollBarVisibility="Auto">
+        <xctk:RichTextBox.TextFormatter>
+          <xctk:RtfFormatter />
+        </xctk:RichTextBox.TextFormatter>
+      </xctk:RichTextBox>
 
     </Grid>
   </Border>
