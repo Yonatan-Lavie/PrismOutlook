@@ -29,6 +29,13 @@
       <ig:ToggleButtonTool x:Name="_italicButton" Caption="Italic" Command="EditingCommands.ToggleItalic"/>
       <ig:ToggleButtonTool x:Name="_underlineButton" Caption="Underline" Command="EditingCommands.ToggleUnderline"/>
     </ig:ButtonGroup>
+
+    <ig:ButtonGroup>
+      <ig:RadioButtonTool x:Name="_alignLeft" Caption="Left" Command="EditingCommands.AlignLeft"/>
+      <ig:RadioButtonTool x:Name="_alignCenter" Caption="Center" Command="EditingCommands.AlignCenter"/>
+      <ig:RadioButtonTool x:Name="_alignRight" Caption="Right" Command="EditingCommands.AlignRight"/>
+      <ig:RadioButtonTool x:Name="_alignJustify" Caption="Justify" Command="EditingCommands.AlignJustify"/>
+    </ig:ButtonGroup>
     
   </ig:RibbonGroup>
 

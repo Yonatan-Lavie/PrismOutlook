@@ -1,6 +1,9 @@
 ﻿using Infragistics.Windows.Ribbon;
 using PrismOutlook.Core;
+using System;
 using System.Linq;
+using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Media;
 using Xceed.Wpf.Toolkit;
 
@@ -11,8 +14,27 @@ namespace PrismOutlook.Modules.Mail.Menus
     /// </summary>
     public partial class MessageTab : ISupportDataContext, ISupportRichText
     {
-        private RichTextBox richTextEditor;
+        #region Properties
+        private RichTextBox _richTextEditor;
+        public RichTextBox RichTextEditor
+        {
+            get => _richTextEditor;
+            set
+            {
+                if (_richTextEditor != null)
+                {
+                    _richTextEditor.Loaded -= RrichTextEditor_Loaded;
+                    _richTextEditor.SelectionChanged -= RichTextEditor_SelectionChanged;
+                }
 
+                _richTextEditor = value;
+                if (_richTextEditor != null)
+                {
+                    _richTextEditor.Loaded += RrichTextEditor_Loaded;
+                    _richTextEditor.SelectionChanged += RichTextEditor_SelectionChanged;
+                }
+            }
+        }
         public static double[] FontSizes
         {
             get
@@ -27,8 +49,7 @@ namespace PrismOutlook.Modules.Mail.Menus
                 };
             }
         }
-
-
+        #endregion
 
         public MessageTab()
         {
@@ -37,24 +58,129 @@ namespace PrismOutlook.Modules.Mail.Menus
             _fontSizes.ItemsSource = FontSizes;
             _fontNames.ItemsSource = Fonts.SystemFontFamilies;
         }
-        public RichTextBox RichTextEditor 
-        { 
-            get => richTextEditor; 
-            set { 
-                    richTextEditor = value; 
-                } 
-        }
 
+        #region Event handlers
         private void FontSizes_SelectedItemChanged(object sender, System.Windows.RoutedPropertyChangedEventArgs<object> e)
         {
-            RichTextEditor.FontSize = (double)e.NewValue;
+            if(e.NewValue == null)
+            {
+                return;
+            }
+            var fontSize = (double)e.NewValue;
+            var textSelection = RichTextEditor.Selection;
+            textSelection.ApplyPropertyValue(FontSizeProperty, fontSize);
         }
 
         private void FontNames_SelectedItemChanged(object sender, System.Windows.RoutedPropertyChangedEventArgs<object> e)
         {
             if (e.NewValue == null)
                 return;
-            RichTextEditor.FontFamily = (FontFamily)e.NewValue;
+            var fontFamily = (FontFamily)e.NewValue;
+            var textSelection = RichTextEditor.Selection;
+            textSelection.ApplyPropertyValue(FontFamilyProperty, fontFamily);
         }
+        
+        private void RrichTextEditor_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            InitVisualState();
+        }
+
+        private void RichTextEditor_SelectionChanged(object sender, System.Windows.RoutedEventArgs e)
+        {
+            UpdateVisualState();
+        }
+        #endregion
+
+        #region Fonctions
+        void InitVisualState()
+        {
+            _richTextEditor.FontFamily = new FontFamily("Arial");
+            _richTextEditor.FontSize = 16.0;
+            _fontSizes.Value = 16.0;
+            _fontNames.Value = new FontFamily("Arial");
+        }
+
+        void UpdateVisualState()
+        {
+            var settings = RichTextEditor.Selection;
+            if (settings == null)
+                return;
+            // leftToRight
+            var a = settings.GetPropertyValue(Inline.FlowDirectionProperty);
+            var b = settings.GetPropertyValue(Paragraph.TextAlignmentProperty);
+            UpdateAligment(settings);
+            UpdateBold(settings);
+            UpdateItalic(settings);
+            UpdateUnderline(settings);
+            UpdateFontSizes(settings);
+            UpdateFontFamily(settings);
+        }
+
+        void UpdateAligment(TextSelection settings)
+        {
+            var textAlignment = settings.GetPropertyValue(Paragraph.TextAlignmentProperty);
+            if(textAlignment is TextAlignment alignment)
+            {
+                switch (alignment)
+                {
+                    case TextAlignment.Left:
+                        _alignLeft.IsChecked = true;
+                        break;
+                    case TextAlignment.Right:
+                        _alignRight.IsChecked = true;
+                        break;
+                    case TextAlignment.Center:
+                        _alignCenter.IsChecked = true;
+                        break;
+                    case TextAlignment.Justify:
+                        _alignJustify.IsChecked = true;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                _alignCenter.IsChecked = true;
+                _alignCenter.IsChecked = false;
+            }
+
+        }
+
+        void UpdateItalic(TextSelection settings)
+        {
+            var IsItalic = settings.GetPropertyValue(FontStyleProperty).ToString() == "Italic" ? true : false;
+            _italicButton.IsChecked = IsItalic;
+        }
+        
+        void UpdateBold(TextSelection settings)
+        {
+            var IsBold = settings.GetPropertyValue(FontWeightProperty).ToString() == "Bold" ? true : false;
+            _boldButton.IsChecked = IsBold;
+        }
+        
+        void UpdateUnderline(TextSelection settings)
+        {
+            var textDecorations = settings.GetPropertyValue(Inline.TextDecorationsProperty);
+            bool IsUnderline = false;
+            if (textDecorations is TextDecorationCollection decorations)
+            {
+                IsUnderline = decorations.FirstOrDefault(x => x.Location == TextDecorationLocation.Underline) == null ? false : true;
+            }
+            _underlineButton.IsChecked = IsUnderline;
+        }
+        
+        void UpdateFontSizes(TextSelection settings)
+        {
+            _fontSizes.Value  = settings.GetPropertyValue(FontSizeProperty);
+        }
+        
+        void UpdateFontFamily(TextSelection settings)
+        {
+            _fontNames.Value = settings.GetPropertyValue(FontFamilyProperty);
+        }
+
+
+        #endregion
     }
 }
