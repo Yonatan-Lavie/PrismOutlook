@@ -40,10 +40,13 @@ namespace PrismOutlook.Modules.Mail.ViewModels
         #region Filed
         private DelegateCommand<string> _messageCommand;
         private DelegateCommand _deleteMessageCommand;
-        private DelegateCommand<string> _newMessageCommand;
+        private DelegateCommand _newMessageCommand;
         #endregion
 
         #region Properties
+        public DelegateCommand NewMessageCommand =>
+            _newMessageCommand ?? (_newMessageCommand = new DelegateCommand(ExecuteNewMessageCommand));
+        
         public DelegateCommand<string> MessageCommand =>
              _messageCommand ?? (_messageCommand = new DelegateCommand<string>(ExecuteMessageCommand));
 
@@ -54,6 +57,17 @@ namespace PrismOutlook.Modules.Mail.ViewModels
         #endregion
 
         #region Headnles
+        void ExecuteNewMessageCommand()
+        {
+            var parameters = new DialogParameters();
+            parameters.Add("id", 0);
+
+            _regionDialogService.Show("MessageView", parameters, (result) =>
+            {
+                if (_currentFolder == FolderParameters.Sent)
+                    Messages.Add(result.Parameters.GetValue<MailMessage>("messageSent"));
+            });
+        }
         void ExecuteDeleteMessageCommand()
         {
             if (SelectedMessage == null)
@@ -71,7 +85,7 @@ namespace PrismOutlook.Modules.Mail.ViewModels
 
             var parameters = new DialogParameters();
             var viewName = "MessageView";
-            MessageMode replyType = MessageMode.Reply;
+            MessageMode replyType = MessageMode.Read;
 
             switch (parameter)
             {

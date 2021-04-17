@@ -8,7 +8,7 @@
 
   <ig:RibbonGroup Caption="New">
     <ig:ButtonTool Caption="New Email" 
-                          Command="{Binding MessageCommand}" 
+                          Command="{Binding NewMessageCommand}" 
                           CommandParameter="New"
                           LargeImage="/PrismOutlook.Modules.Mail;component/Images/NewMailMessage32.png" 
                           SmallImage="/PrismOutlook.Modules.Mail;component/Images/NewMailMessage16.png" ig:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
