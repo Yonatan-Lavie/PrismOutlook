@@ -40,7 +40,7 @@ namespace PrismOutlook.Modules.Mail.ViewModels
         #region Filed
         private DelegateCommand<string> _messageCommand;
         private DelegateCommand _deleteMessageCommand;
-        private DelegateCommand _newMessageCommand;
+        private DelegateCommand<string> _newMessageCommand;
         #endregion
 
         #region Properties
@@ -50,8 +50,17 @@ namespace PrismOutlook.Modules.Mail.ViewModels
         public DelegateCommand DeleteMessageCommand =>
             _deleteMessageCommand ?? (_deleteMessageCommand = new DelegateCommand(ExecuteDeleteMessageCommand));
 
-        public DelegateCommand NewMessageCommand =>
-            _newMessageCommand ?? (_newMessageCommand = new DelegateCommand(ExecuteNewMessageCommand));
+        public DelegateCommand<string> NewMessageCommand =>
+            _newMessageCommand ?? (_newMessageCommand = new DelegateCommand<string>(ExecuteNewMessageCommand));
+
+        private DelegateCommand _replyMessageCommand;
+        public DelegateCommand ReplyMessageCommand =>
+            _replyMessageCommand ?? (_replyMessageCommand = new DelegateCommand(ExecuteReplyMessageCommand));
+
+        void ExecuteReplyMessageCommand()
+        {
+
+        }
         #endregion
 
         #region Headnles
@@ -78,7 +87,7 @@ namespace PrismOutlook.Modules.Mail.ViewModels
             Messages.Remove(SelectedMessage);
         }
 
-        void ExecuteNewMessageCommand()
+        void ExecuteNewMessageCommand(string parameter)
         {
             var prameters = new DialogParameters();
             prameters.Add("id", 0);
