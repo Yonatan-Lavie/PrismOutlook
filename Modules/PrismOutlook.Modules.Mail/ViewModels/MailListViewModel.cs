@@ -17,18 +17,18 @@ namespace PrismOutlook.Modules.Mail.ViewModels
         #endregion
 
         #region Filed
-        private ObservableCollection<MailMessage> _messages = new ObservableCollection<MailMessage>();
-        private MailMessage _selectedMessage;
+        private ObservableCollection<Business.MailMessage> _messages = new ObservableCollection<Business.MailMessage>();
+        private Business.MailMessage _selectedMessage;
         private string _currentFolder = FolderParameters.Inbox;
         #endregion
 
         #region Properties
-        public MailMessage SelectedMessage
+        public Business.MailMessage SelectedMessage
         {
             get { return _selectedMessage; }
             set { SetProperty(ref _selectedMessage, value); }
         }
-        public ObservableCollection<MailMessage> Messages
+        public ObservableCollection<Business.MailMessage> Messages
         {
             get { return _messages; }
             set { SetProperty(ref _messages, value); }
@@ -50,33 +50,10 @@ namespace PrismOutlook.Modules.Mail.ViewModels
         public DelegateCommand DeleteMessageCommand =>
             _deleteMessageCommand ?? (_deleteMessageCommand = new DelegateCommand(ExecuteDeleteMessageCommand));
 
-        public DelegateCommand<string> NewMessageCommand =>
-            _newMessageCommand ?? (_newMessageCommand = new DelegateCommand<string>(ExecuteNewMessageCommand));
 
-        private DelegateCommand _replyMessageCommand;
-        public DelegateCommand ReplyMessageCommand =>
-            _replyMessageCommand ?? (_replyMessageCommand = new DelegateCommand(ExecuteReplyMessageCommand));
-
-        void ExecuteReplyMessageCommand()
-        {
-
-        }
         #endregion
 
         #region Headnles
-        void ExecuteMessageCommand(string parameter)
-        {
-            if (SelectedMessage == null)
-                return;
-
-            var prameters = new DialogParameters();
-            prameters.Add("id", SelectedMessage.Id);
-            _regionDialogService.Show("MessageView", prameters, (result) =>
-            {
-
-            });
-        }
-
         void ExecuteDeleteMessageCommand()
         {
             if (SelectedMessage == null)
@@ -87,17 +64,52 @@ namespace PrismOutlook.Modules.Mail.ViewModels
             Messages.Remove(SelectedMessage);
         }
 
-        void ExecuteNewMessageCommand(string parameter)
+        void ExecuteMessageCommand(string parameter)
         {
-            var prameters = new DialogParameters();
-            prameters.Add("id", 0);
-            _regionDialogService.Show("MessageView", prameters, (result) =>
+            if (SelectedMessage == null)
+                return;
+
+            var parameters = new DialogParameters();
+            var viewName = "MessageView";
+            MessageMode replyType = MessageMode.Reply;
+
+            switch (parameter)
             {
-                if (_currentFolder == FolderParameters.Sent)
-                    Messages.Add(result.Parameters.GetValue<MailMessage>("messageSent"));
+                case nameof(MessageMode.Read):
+                    {
+                        viewName = "MessageReadOnlyView";
+                        replyType = MessageMode.Read;
+                        break;
+                    }
+                case nameof(MessageMode.Reply):
+                    {
+                        replyType = MessageMode.Reply;
+                        break;
+                    }
+                case nameof(MessageMode.ReplyAll):
+                    {
+                        replyType = MessageMode.ReplyAll;
+                        break;
+                    }
+                case nameof(MessageMode.Forward):
+                    {
+                        replyType = MessageMode.Forward;
+                        break;
+                    }
+
+            }
+
+
+            parameters.Add(MailParameters.MessageId, SelectedMessage.Id);
+            parameters.Add(MailParameters.MessageMode, replyType);
+
+            _regionDialogService.Show(viewName, parameters, (result) =>
+            {
 
             });
         }
+
+
         #endregion
 
         #endregion
@@ -128,17 +140,17 @@ namespace PrismOutlook.Modules.Mail.ViewModels
             {
                 case FolderParameters.Inbox:
                     {
-                        Messages = new ObservableCollection<MailMessage>(_mailService.GetInboxItems());
+                        Messages = new ObservableCollection<Business.MailMessage>(_mailService.GetInboxItems());
                         break;
                     }
                 case FolderParameters.Sent:
                     {
-                        Messages = new ObservableCollection<MailMessage>(_mailService.GetSentItems());
+                        Messages = new ObservableCollection<Business.MailMessage>(_mailService.GetSentItems());
                         break;
                     }
                 case FolderParameters.Deleted:
                     {
-                        Messages = new ObservableCollection<MailMessage>(_mailService.GetDeletedItems());
+                        Messages = new ObservableCollection<Business.MailMessage>(_mailService.GetDeletedItems());
                         break;
                     }
                 default:

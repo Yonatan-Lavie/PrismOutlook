@@ -7,45 +7,54 @@
              xmlns:converters="clr-namespace:PrismOutlook.Modules.Mail.Converters"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              prism:ViewModelLocator.AutoWireViewModel="True">
-  <UserControl.Resources>
-    <converters:MailAddressConverter x:Key="MailAddressConverter" />
-  </UserControl.Resources>
+    <UserControl.Resources>
+        <converters:MailAddressConverter x:Key="MailAddressConverter" />
+        <SolidColorBrush Color="#D4D4D4" x:Key="LineBrush"/>
+        <SolidColorBrush Color="#666666" x:Key="LightTextBrush"/>
+        <SolidColorBrush Color="#444444" x:Key="DarkTextBrush"/>
+    </UserControl.Resources>
 
 
-  <Border Grid.Column="1" Margin="5,0,0,0" Background="White">
-    <Grid Margin="5" Name="MessagePreviewArea">
+
+    <Grid Grid.Column="1" x:Name="LayoutRoot" Background="White">
       <Grid.RowDefinitions>
-        <RowDefinition Height="Auto" />
-        <RowDefinition Height="*" />
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="Auto"/>
       </Grid.RowDefinitions>
 
-      <Grid Margin="10,0,0,0">
+      <Grid x:Name="_grid" Margin="10,0,0,0">
         <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="85"/>
+          <ColumnDefinition Width="Auto" />
+          <ColumnDefinition Width="Auto" />
           <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-          <RowDefinition Height="auto"/>
-          <RowDefinition Height="auto"/>
-          <RowDefinition Height="auto"/>
-          <RowDefinition Height="auto"/>
-          <RowDefinition Height="auto"/>
-          <RowDefinition Height="auto"/>
-          <RowDefinition Height="10"/>
+          <RowDefinition Height="2"/>
+          <RowDefinition Height="30"/>
+          <RowDefinition Height="30"/>
+          <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
 
+        <Button Grid.RowSpan="3" Grid.Row="1" Margin="6,2,6,0" Width="55" Height="80" Command="{Binding SendMessageCommand}">
+          <StackPanel Orientation="Vertical">
+            <Image Height="30" Source="/PrismOutlook.Modules.Mail;component/Images/Forward32.png"/>
+            <TextBlock Text="Send" Foreground="{StaticResource LightTextBrush}"/>
+          </StackPanel>
+        </Button>
 
+        <TextBlock Grid.Row="1" Grid.Column="1" Text="To:" Margin="2" VerticalAlignment="Center" Foreground="{StaticResource LightTextBrush}"/>
+        <TextBox Grid.Row="1" Text="{Binding Message.To, Converter={StaticResource MailAddressConverter}}" Grid.Column="2" Margin="2" VerticalAlignment="Center" />
 
-        <TextBlock Grid.Column="0" Grid.Row="0" Text="To:"  HorizontalAlignment="Left" Padding="1" Margin="1" FontSize="16"/>
-        <TextBox Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" Text="{Binding Message.To, Converter={StaticResource MailAddressConverter}}" Padding="1" Margin="1" FontSize="16"/>
-        <TextBlock Grid.Column="0" Grid.Row="1" Text="Cc:"  HorizontalAlignment="Left" Padding="1" Margin="1" FontSize="16"/>
-        <TextBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding Message.Cc, Converter={StaticResource MailAddressConverter}}" Padding="1" Margin="1" FontSize="16"/>
-        <TextBlock Grid.Column="0" Grid.Row="2" Text="Subject:"  HorizontalAlignment="Left" Padding="1" Margin="1" FontSize="16"/>
-        <TextBox Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding Message.Subject}" Padding="1" Margin="1" FontSize="16"/>
+        <TextBlock Grid.Row="2" Grid.Column="1" Text="CC:" Margin="2" VerticalAlignment="Center" Foreground="{StaticResource LightTextBrush}"/>
+        <TextBox Grid.Row="2" Text="{Binding Message.Cc, Converter={StaticResource MailAddressConverter}}" Grid.Column="2" Margin="2" VerticalAlignment="Center" />
+
+        <TextBlock Grid.Row="3" Grid.Column="1" Text="Subject" Margin="2" VerticalAlignment="Center" Foreground="{StaticResource LightTextBrush}"/>
+        <TextBox Grid.Row="3" Grid.Column="2" Text="{Binding Message.Subject}" VerticalAlignment="Stretch" Margin="2,4"/>
       </Grid>
 
 
-      <xctk:RichTextBox Grid.Row="3" x:Name="_richTextBox"
+      <xctk:RichTextBox Grid.Row="1" x:Name="_richTextBox"
                                      IsReadOnly="False"
                                      Text="{Binding Message.Body}" 
                                      ScrollViewer.VerticalScrollBarVisibility="Auto">
@@ -54,6 +63,5 @@
         </xctk:RichTextBox.TextFormatter>
       </xctk:RichTextBox>
 
-    </Grid>
-  </Border>
+  </Grid>
 </UserControl>

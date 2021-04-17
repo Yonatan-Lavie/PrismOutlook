@@ -22,6 +22,7 @@ namespace PrismOutlook.Modules.Mail
         public void OnInitialized(IContainerProvider containerProvider)
         {
             _regionManager.RegisterViewWithRegion(RegionNames.OutlookGroupRegion, typeof(MailGroup));
+
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
@@ -29,12 +30,13 @@ namespace PrismOutlook.Modules.Mail
             ViewModelLocationProvider.Register<MailGroup, MailGroupViewModel>();
             
             containerRegistry.RegisterForNavigation<MailList>();
-
             containerRegistry.RegisterForNavigation<MessageView, MessageViewModel>();
+            containerRegistry.RegisterForNavigation<MessageReadOnlyView, MessageReadOnlyViewModel>();
 
             containerRegistry.RegisterSingleton<IMailService, MailService>();
 
-            containerRegistry.RegisterDialog<MessageView, MessageViewModel>();
+            //containerRegistry.RegisterDialog<MessageView, MessageViewModel>();
+
         }
     }
 }

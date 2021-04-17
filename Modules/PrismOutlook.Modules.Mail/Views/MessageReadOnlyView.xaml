@@ -45,16 +45,16 @@
             </Grid>
           </Border>
 
-          <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding SelectedMessage.DateSent, StringFormat={}{0:ddd MM/dd/yyyy hh:mm tt}}" Margin="10,0,0,0" />
+          <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Message.DateSent, StringFormat={}{0:ddd MM/dd/yyyy hh:mm tt}}" Margin="10,0,0,0" />
 
-          <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding SelectedMessage.Subject}" FontSize="16" Margin="10,0,0,0" />
+          <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding Message.Subject}" FontSize="16" Margin="10,0,0,0" />
 
           <TextBlock Grid.Column="0" Grid.Row="3" Text="To:" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
           <TextBlock Grid.Column="0" Grid.Row="4" Text="Cc:"  HorizontalAlignment="Left" Height="25" Padding="0,7,0,0" />
 
-          <TextBlock Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Text="{Binding SelectedMessage.To, Converter={StaticResource MailAddressConverter}}" 
+          <TextBlock Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Text="{Binding Message.To, Converter={StaticResource MailAddressConverter}}" 
                                VerticalAlignment="Bottom" Margin="25,0,0,0" />
-          <TextBlock Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Text="{Binding SelectedMessage.Cc}" 
+          <TextBlock Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Text="{Binding Message.Cc}" 
                                Padding="0,7,0,0" Height="25" Margin="25,0,0,0" />
 
           <Rectangle Grid.Row="6" Grid.ColumnSpan="2" Stroke="#FFD4D4D4"  StrokeThickness="0.4" Height="1" VerticalAlignment="Center" Fill="Transparent" igPrim:XamlHelper.SnapsToDevicePixels="True"/>
@@ -62,7 +62,7 @@
 
         <xctk:RichTextBox Grid.Row="1" x:Name="_richTextBox"
                                      IsReadOnly="True"
-                                     Text="{Binding SelectedMessage.Body}" 
+                                     Text="{Binding Message.Body}" 
                                      ScrollViewer.VerticalScrollBarVisibility="Auto">
           <!--<xctk:RichTextBox.TextFormatter>
             <xctk:RtfFormatter />

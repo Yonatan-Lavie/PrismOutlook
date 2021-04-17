@@ -28,7 +28,7 @@
     <Grid Background="White" Margin="5,0,0,0">
       <igWpf:XamDataGrid Margin="0,0,10,0" DataSource="{Binding Messages}" ActiveDataItem="{Binding SelectedMessage}" RecordSelectorExtent="0" GroupByAreaLocation="None">
         <igWpf:XamDataGrid.InputBindings>
-          <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding MessageCommand}"/>
+          <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding MessageCommand}" CommandParameter="Read"/>
           <KeyBinding Command="{Binding DeleteMessageCommand}" Key="Delete"/>
         </igWpf:XamDataGrid.InputBindings>
         <igWpf:XamDataGrid.FieldSettings>
@@ -89,7 +89,7 @@
 
           <TextBlock Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Text="{Binding SelectedMessage.To, Converter={StaticResource MailAddressConverter}}" 
                                VerticalAlignment="Bottom" Margin="25,0,0,0" />
-          <TextBlock Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Text="{Binding SelectedMessage.Cc}" 
+          <TextBlock Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Text="{Binding SelectedMessage.Cc, Converter={StaticResource MailAddressConverter}}" 
                                Padding="0,7,0,0" Height="25" Margin="25,0,0,0" />
 
           <Rectangle Grid.Row="6" Grid.ColumnSpan="2" Stroke="#FFD4D4D4"  StrokeThickness="0.4" Height="1" VerticalAlignment="Center" Fill="Transparent" igPrim:XamlHelper.SnapsToDevicePixels="True"/>
