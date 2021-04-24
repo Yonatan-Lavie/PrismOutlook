@@ -17,8 +17,8 @@ namespace PrismOutlook.Modules.Mail.ViewModels
         private DelegateCommand _sendMessageCommand;
         private readonly IMailService _mailService;
 
-        private Business.MailMessage _message;
-        public Business.MailMessage Message
+        private MailMessage _message;
+        public MailMessage Message
         {
             get { return _message; }
             set { SetProperty(ref _message, value); }
@@ -59,7 +59,7 @@ namespace PrismOutlook.Modules.Mail.ViewModels
 
         public void OnDialogOpened(IDialogParameters parameters)
         {
-            Message = new Business.MailMessage() { From = "yonatan.lavie89@gmail.com" };
+            Message = new MailMessage() { From = "yonatan.lavie89@gmail.com" };
 
 
             var messageMode = parameters.GetValue<MessageMode>(MailParameters.MessageMode);

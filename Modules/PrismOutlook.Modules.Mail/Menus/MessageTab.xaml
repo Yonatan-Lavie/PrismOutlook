@@ -46,11 +46,7 @@
         <ig:RadioButtonTool x:Name="_alignJustify" Command="EditingCommands.AlignJustify"
                                        SmallImage="/PrismOutlook.Modules.Mail;component/Images/JustifyAlign16.png"/>
       </ig:ButtonGroup>
-      <!--TODO: implement Commands in MessageTab.cs -->
-      <ig:ButtonGroup >
-        <ig:ToggleButtonTool x:Name="_bulletsButton" Tag="Bullet" SmallImage="/PrismOutlook.Modules.Mail;component/Images/Bullets16.png" />
-        <ig:ToggleButtonTool x:Name="_numbersButton"  Tag="Decimal" SmallImage="/PrismOutlook.Modules.Mail;component/Images/Numbering16.png" />
-      </ig:ButtonGroup>
+
     </ig:ToolHorizontalWrapPanel>
   </ig:RibbonGroup>
 

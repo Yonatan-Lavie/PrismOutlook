@@ -11,5 +11,6 @@ namespace PrismOutlook.Modules.Mail
         ReplyAll,
         Forward,
         Read,
+        Delete,
     }
 }
